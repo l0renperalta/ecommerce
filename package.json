@@ -1,0 +1,28 @@
+{
+   "name": "ecommerce",
+   "version": "1.0.0",
+   "description": "store application with express and mysql",
+   "main": "index.js",
+   "scripts": {
+      "dev": "nodemon src/"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/l0renperalta/ecommerce.git"
+   },
+   "author": "loren",
+   "license": "MIT",
+   "bugs": {
+      "url": "https://github.com/l0renperalta/ecommerce/issues"
+   },
+   "homepage": "https://github.com/l0renperalta/ecommerce#readme",
+   "dependencies": {
+      "express": "^4.18.2",
+      "express-handlebars": "^6.0.6",
+      "express-session": "^1.17.3",
+      "mysql": "^2.18.1"
+   },
+   "devDependencies": {
+      "nodemon": "^2.0.20"
+   }
+}

@@ -1,0 +1,42 @@
+<div class='container'>
+   <div class='row'>
+      <div class='col-4'>
+         <h3 class='mt-4 mb-4'>Edit Product</h3>
+         <form action='/products/edit/{{product.id}}' method='post'>
+            <input
+               type='text'
+               name='name'
+               placeholder='name'
+               class='form-control mt-3'
+               autofocus
+               value='{{product.name}}'
+            />
+            <input
+               type='text'
+               name='description'
+               placeholder='description'
+               class='form-control mt-3'
+               value='{{product.description}}'
+            />
+            <input
+               type='number'
+               name='price'
+               placeholder='price'
+               class='form-control mt-3'
+               value='{{product.price}}'
+            />
+            <input
+               type='number'
+               name='stock'
+               placeholder='stock'
+               class='form-control mt-3'
+               value='{{product.stock}}'
+            />
+            <input type='file' name='image' class='form-control mt-3' />
+            <div class='d-grid gap-2 mt-3'>
+               <button type='submit' class='btn btn-primary btn-block'>Edit Product</button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
