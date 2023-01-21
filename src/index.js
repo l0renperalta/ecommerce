@@ -1,13 +1,19 @@
 const express = require('express');
-const { engine } = require('express-handlebars');
 const path = require('path');
+const session = require('express-session');
+const { engine } = require('express-handlebars');
+const passport = require('passport');
+const mysqlSession = require('express-mysql-session');
+const { database } = require('./credentials');
+const flash = require('connect-flash');
+const morgan = require('morgan');
 
 // Initializations
 const app = express();
 app.set('views', path.join(__dirname, 'views'));
+require('./lib/passport');
 
 // Settings
-app.use(express.urlencoded({ extended: true }));
 app.engine(
    '.hbs',
    engine({
@@ -20,9 +26,31 @@ app.engine(
 app.set('view engine', 'hbs');
 
 // Middlewares
+app.use(
+   session({
+      secret: 'ecommerce',
+      resave: false,
+      saveUninitialized: false,
+      store: new mysqlSession(database),
+   })
+);
+app.use(morgan('dev'));
+app.use(flash());
+app.use(express.urlencoded({ extended: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Global variables
+app.use((req, res, next) => {
+   app.locals.success = req.flash('success');
+   app.locals.message = req.flash('message');
+   app.locals.user = req.user;
+   next();
+});
 
 // Routes
 app.use(require('./routes/products'));
+app.use(require('./routes/authentication'));
 
 // Starting server
 app.listen(5000, () => console.log(`Server listening on port 5000`));

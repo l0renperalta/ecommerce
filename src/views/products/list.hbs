@@ -8,10 +8,8 @@
             <div class='col-md-8'>
                <div class='card-body'>
                   <h5 class='card-title'>{{name}}</h5>
-                  <p class='card-text'>{{description}}</p>
                   <p class='card-text'>S/.{{price}}</p>
-                  <p class='card-text'><small class='text-muted'>{{created_at}}</small></p>
-                  <a href='/products/{{id}}' class='btn btn-primary'>See Details</a>
+                  <a href='/products/details/{{id}}' class='btn btn-primary'>See Details</a>
                   <a href='/products/{{id}}' class='btn btn-primary'>Add to Cart</a>
                   <a href='/products/edit/{{id}}' class='btn btn-success'>Edit</a>
                   <a href='/products/delete/{{id}}' class='btn btn-danger'>Delete</a>
