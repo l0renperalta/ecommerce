@@ -1,11 +1,22 @@
 <div class='container'>
-   <div class='card mb-3'>
-      <img src='...' class='card-img-top' alt='...' />
-      <div class='card-body'>
-         <h5 class='card-title'>{{product.name}}</h5>
-         <p class='card-text'>{{product.description}}</p>
-         <p class='card-text'><small class='text-muted'>{{created_at}}</small></p>
-         <a href='/products/{{id}}' class='btn btn-primary'>Add to Cart</a>
+   <div class='card mb-4 mt-4'>
+      <div class='row g-0'>
+         <div class='col-md-6'>
+            <img src='{{product.image}}' style='height: 400px;' />
+         </div>
+         <div class='col-md-6'>
+            <div class='card-body'>
+               <h5 class='card-title'>{{product.name}}</h5>
+               <p><strong>About this product</strong></p>
+               <p class='card-text'>{{product.description}}</p>
+               <p class='card-text'><small class='text-muted'>{{product.created_at}}</small></p>
+               {{#if user}}
+                  <a href='/products/{{product.id}}' class='btn btn-primary'>Add to Cart</a>
+               {{else}}
+                  <a href='/signin' class='btn btn-primary'>Add to Cart</a>
+               {{/if}}
+            </div>
+         </div>
       </div>
    </div>
 </div>

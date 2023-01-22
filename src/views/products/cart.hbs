@@ -1,0 +1,41 @@
+<div class='container'>
+   {{#if user}}
+      <div class='mt-4 mb-4'>
+         <h3>Cart</h3>
+         <table class='table'>
+            <thead>
+               <tr class='table-dark'>
+                  <th scope='col'>Product</th>
+                  <th scope='col'>Price</th>
+                  <th scope='col'>Quantity</th>
+                  <th scope='col'></th>
+               </tr>
+            </thead>
+            <tbody>
+               {{#if cart}}
+                  {{#each cart}}
+                     <tr>
+                        <td>{{productName}}</td>
+                        <td>${{price}}</td>
+                        <td>{{stock}}</td>
+                        <td><a href='/removeItem/{{id}}' class='btn btn-danger'>Remove</a></td>
+                     </tr>
+                  {{/each}}
+               {{else}}
+                  <p>add items to your cart</p>
+                  <a href='/products' class='btn btn-primary'>Products</a>
+               {{/if}}
+            </tbody>
+         </table>
+         {{#if cart}}
+            <a href='/checkout' class='btn btn-primary'>Checkout</a>
+         {{/if}}
+
+      </div>
+   {{else}}
+      <div class='container text-center mt-5'>
+         <p>Login to add products your cart</p>
+         <a href='/signin' class='btn btn-primary'>Signin</a>
+      </div>
+   {{/if}}
+</div>

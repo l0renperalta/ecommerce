@@ -11,6 +11,8 @@ router.get('/products', async (req, res) => {
 router.get('/products/details/:id', async (req, res) => {
    const id = req.params.id;
    const product = await pool.query('SELECT * FROM products WHERE id = ?', [id]);
+   // req.session.destroy();
+   // console.log(req.session);
    res.render('products/details', { product: product[0] });
 });
 
@@ -55,6 +57,34 @@ router.get('/products/delete/:id', isLoggedIn, async (req, res) => {
    const { id } = req.params;
    await pool.query('DELETE FROM products WHERE id = ?', [id]);
    res.redirect('/products');
+});
+
+router.get('/products/:id', async (req, res) => {
+   const cart = req.session.cart ? req.session.cart : [];
+   const id = req.params.id;
+   const product = await pool.query('SELECT * FROM products WHERE id = ?', [id]);
+   const cartElement = {
+      id: product[0].id,
+      productName: product[0].name,
+      stock: product[0].stock,
+      price: product[0].price,
+   };
+   const repeatElement = cart.some((e) => e.id === id);
+   if (!repeatElement) {
+      cart.push(cartElement);
+      req.session.cart = cart;
+   }
+   res.redirect(`/products/details/${req.params.id}`);
+});
+
+router.get('/cart', (req, res) => {
+   console.log(req.session);
+   const cart = req.session.cart;
+   res.render('products/cart', { cart: cart });
+});
+
+router.get('/removeItem/:id', (req, res) => {
+   console.log(req.params.id);
 });
 
 module.exports = router;

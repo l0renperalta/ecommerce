@@ -49,6 +49,7 @@ app.use((req, res, next) => {
 });
 
 // Routes
+app.use(require('./routes/home'));
 app.use(require('./routes/products'));
 app.use(require('./routes/authentication'));
 

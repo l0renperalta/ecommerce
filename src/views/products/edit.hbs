@@ -32,7 +32,14 @@
                class='form-control mt-3'
                value='{{product.stock}}'
             />
-            <input type='file' name='image' class='form-control mt-3' />
+            <input
+               type='text'
+               name='image'
+               placeholder='image'
+               class='form-control mt-3'
+               value='{{product.image}}'
+            />
+            {{! <input type='file' name='image' class='form-control mt-3' /> }}
             <div class='d-grid gap-2 mt-3'>
                <button type='submit' class='btn btn-primary btn-block'>Edit Product</button>
             </div>

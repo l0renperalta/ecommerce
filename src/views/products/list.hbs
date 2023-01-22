@@ -1,18 +1,26 @@
-<div class='container'>
+<div class='container text-center'>
    {{#each products}}
-      <div class='card mb-3' style='max-width: 640px;'>
-         <div class='row g-0'>
-            <div class='col-md-4'>
-               <img src='...' class='img-fluid rounded-start' alt='...' />
-            </div>
-            <div class='col-md-8'>
-               <div class='card-body'>
-                  <h5 class='card-title'>{{name}}</h5>
-                  <p class='card-text'>S/.{{price}}</p>
-                  <a href='/products/details/{{id}}' class='btn btn-primary'>See Details</a>
-                  <a href='/products/{{id}}' class='btn btn-primary'>Add to Cart</a>
-                  <a href='/products/edit/{{id}}' class='btn btn-success'>Edit</a>
-                  <a href='/products/delete/{{id}}' class='btn btn-danger'>Delete</a>
+      <div class='col mt-4 bt-4'>
+         <div class='card mb-3'>
+            <div class='row g-0'>
+               <div class='col-md-4'>
+                  <img src='{{image}}' class='img-fluid rounded-start' alt='...' />
+               </div>
+               <div class='col-md-8 mt-3'>
+                  <div class='card-body'>
+                     <h5>
+                        <a
+                           href='/products/details/{{id}}'
+                           style='outline: none;
+  text-decoration: none;color:black;'
+                        >{{name}}</a>
+                     </h5>
+                     <p class='card-text'>${{price}}</p>
+                     {{#if user}}
+                        <a href='/products/edit/{{id}}' class='btn btn-success'>Edit</a>
+                        <a href='/products/delete/{{id}}' class='btn btn-danger'>Delete</a>
+                     {{/if}}
+                  </div>
                </div>
             </div>
          </div>

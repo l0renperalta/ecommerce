@@ -13,15 +13,15 @@ passport.use(
       },
       async (req, email, password, done) => {
          const { username } = req.body;
-         const newUser = {
+         const user = {
             email,
             username,
             password,
          };
-         newUser.password = await encryptPassword(password);
-         const result = await pool.query('INSERT INTO users SET ?', [newUser]);
-         newUser.id = result.insertId;
-         return done(null, newUser);
+         user.password = await encryptPassword(password);
+         const result = await pool.query('INSERT INTO users SET ?', [user]);
+         user.id = result.insertId;
+         return done(null, user);
       }
    )
 );
