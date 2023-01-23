@@ -61,30 +61,51 @@ router.get('/products/delete/:id', isLoggedIn, async (req, res) => {
 
 router.get('/products/:id', async (req, res) => {
    const cart = req.session.cart ? req.session.cart : [];
-   const id = req.params.id;
+   const id = parseInt(req.params.id);
    const product = await pool.query('SELECT * FROM products WHERE id = ?', [id]);
-   const cartElement = {
-      id: product[0].id,
-      productName: product[0].name,
-      stock: product[0].stock,
-      price: product[0].price,
-   };
-   const repeatElement = cart.some((e) => e.id === id);
-   if (!repeatElement) {
-      cart.push(cartElement);
-      req.session.cart = cart;
+   const initialPrice = product[0].price;
+   if (cart.some((e) => e.id === id)) {
+      const product = cart.find((e) => e.id === id);
+      product.quantity++;
+      product.price = initialPrice * product.quantity;
+   } else {
+      cart.push({
+         id: product[0].id,
+         image: product[0].image,
+         productName: product[0].name,
+         price: product[0].price,
+         quantity: 1,
+      });
    }
+   req.session.cart = cart;
    res.redirect(`/products/details/${req.params.id}`);
 });
 
 router.get('/cart', (req, res) => {
-   console.log(req.session);
    const cart = req.session.cart;
    res.render('products/cart', { cart: cart });
 });
 
-router.get('/removeItem/:id', (req, res) => {
-   console.log(req.params.id);
+router.get('/checkout', (req, res) => {
+   res.render('products/checkout');
+});
+
+router.get('/removeItem/:id', async (req, res) => {
+   const id = parseInt(req.params.id);
+   const cart = req.session.cart;
+   const index = cart.findIndex((e) => e.id === id);
+   const product = cart[index];
+   const storedProduct = await pool.query('SELECT * FROM products WHERE id = ?', [id]);
+   const initialPrice = storedProduct[0].price;
+
+   if (product.quantity > 1) {
+      product.quantity = --product.quantity;
+      product.price = product.price - initialPrice;
+   } else {
+      cart.splice(index, 1);
+   }
+   req.session.cart = cart;
+   res.redirect('/cart');
 });
 
 module.exports = router;

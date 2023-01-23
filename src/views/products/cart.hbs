@@ -6,6 +6,7 @@
             <thead>
                <tr class='table-dark'>
                   <th scope='col'>Product</th>
+                  <th scope='col'>Name</th>
                   <th scope='col'>Price</th>
                   <th scope='col'>Quantity</th>
                   <th scope='col'></th>
@@ -15,9 +16,10 @@
                {{#if cart}}
                   {{#each cart}}
                      <tr>
-                        <td>{{productName}}</td>
+                        <td><img src='{{image}}' alt='' width='200px' /></td>
+                        <td><a href='/products/{{id}}'>{{productName}}</a></td>
                         <td>${{price}}</td>
-                        <td>{{stock}}</td>
+                        <td>{{quantity}}</td>
                         <td><a href='/removeItem/{{id}}' class='btn btn-danger'>Remove</a></td>
                      </tr>
                   {{/each}}
