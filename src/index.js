@@ -52,6 +52,9 @@ app.use((req, res, next) => {
 app.use(require('./routes/home'));
 app.use(require('./routes/products'));
 app.use(require('./routes/authentication'));
+app.use(require('./routes/admin'));
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Starting server
 app.listen(5000, () => console.log(`Server listening on port 5000`));
