@@ -1,0 +1,33 @@
+<div class='container-fluid'>
+   <!-- Page Heading -->
+   <div class='d-sm-flex align-items-center justify-content-between mb-4'>
+      <h1 class='h3 mb-0 text-gray-800'>Products</h1>
+   </div>
+
+   <table class='table'>
+      <thead class='thead-dark'>
+         <tr>
+            <th scope='col'>#</th>
+            <th scope='col'>First</th>
+            <th scope='col'>Last</th>
+            <th scope='col'>Handle</th>
+            <th scope='col'>Actions</th>
+         </tr>
+      </thead>
+      <tbody>
+         {{#each products}}
+            <tr>
+               <th scope='row'>1</th>
+               <td>{{name}}</td>
+               <td>{{price}}</td>
+               <td>@{{stock}}</td>
+               <td><a href='/dashboard/products/edit/{{id}}' class='btn btn-success'>Edit</a><a
+                     href='/dashboard/products/delete/{{id}}'
+                     class='btn btn-danger'
+                  >Delete</a></td>
+            </tr>
+         {{/each}}
+      </tbody>
+   </table>
+
+</div>
