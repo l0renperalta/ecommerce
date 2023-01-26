@@ -24,7 +24,6 @@
          <div class='row'>
             <div class='col-lg-8'>
                {{#if cart}}
-
                   <div class='shopping__cart__table'>
                      <table>
                         <thead>
@@ -40,21 +39,19 @@
                               <tr>
                                  <td class='product__cart__item'>
                                     <div class='product__cart__item__pic'>
-                                       <img src='img/shopping-cart/cart-1.jpg' alt='' />
+                                       <img src='/img/product/{{image}}' alt='' style='height: 120px;' />
                                     </div>
                                     <div class='product__cart__item__text'>
-                                       <h6>T-shirt Contrast Pocket</h6>
-                                       <h5>$98.49</h5>
+                                       <a href='/products/details/{{id}}'><h6>{{name}}</h6></a>
+                                       <h5>${{itemPrice}}</h5>
                                     </div>
                                  </td>
                                  <td class='quantity__item'>
                                     <div class='quantity'>
-                                       <div class='pro-qty-2'>
-                                          <input type='text' value='1' />
-                                       </div>
+                                       <h6 style='padding-left: 30px;'>{{quantity}}</h6>
                                     </div>
                                  </td>
-                                 <td class='cart__price'>$ 30.00</td>
+                                 <td class='cart__price'>${{itemTotalPrice}}</td>
                                  <td class='cart__close'>
                                     <a href='/removeItem/{{id}}'><i class='fa fa-close'></i></a>
                                  </td>
@@ -67,12 +64,12 @@
                   <div class='row'>
                      <div class='col-lg-6 col-md-6 col-sm-6'>
                         <div class='continue__btn'>
-                           <a href='#'>Continue Shopping</a>
+                           <a href='/products'>Continue Shopping</a>
                         </div>
                      </div>
                      <div class='col-lg-6 col-md-6 col-sm-6'>
                         <div class='continue__btn update__btn'>
-                           <a href='#'><i class='fa fa-spinner'></i> Update cart</a>
+                           <a href='/cart'><i class='fa fa-spinner'></i> Update cart</a>
                         </div>
                      </div>
                   </div>
@@ -109,6 +106,7 @@
       <a href='/signin' class='btn btn-primary'>Signin</a>
    </div>
 {{/if}}
+
 <!-- Shopping Cart Section End -->
 {{!-- {{#if user}}
    <section class='h-100 gradient-custom'>

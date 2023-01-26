@@ -1,3 +1,4 @@
+const { application } = require('express');
 const express = require('express');
 const router = express.Router();
 const pool = require('../connection');
@@ -13,6 +14,10 @@ router.get('/products/details/:id', async (req, res) => {
    const product = await pool.query('SELECT * FROM products WHERE id = ?', [id]);
    // req.session.destroy();
    // console.log(req.session);
+   if (!req.session.totalPrice) {
+      req.session.totalPrice = 0;
+   }
+   console.log(req.session);
    res.render('products/details', { product: product[0] });
 });
 
@@ -24,15 +29,22 @@ router.get('/products/:id', async (req, res) => {
    if (cart.some((e) => e.id === id)) {
       const product = cart.find((e) => e.id === id);
       product.quantity++;
-      product.price = initialPrice * product.quantity;
+      product.itemTotalPrice = initialPrice * product.quantity;
+      req.session.totalPrice = req.session.totalPrice
+         ? cart.reduce((acc, curr) => curr.itemTotalPrice + acc.itemTotalPrice)
+         : 0;
    } else {
       cart.push({
          id: product[0].id,
          image: product[0].image,
-         productName: product[0].name,
-         price: product[0].price,
+         name: product[0].name,
+         itemPrice: product[0].price,
+         itemTotalPrice: product[0].price,
          quantity: 1,
       });
+      req.session.totalPrice = req.session.totalPrice
+         ? cart.reduce((acc, curr) => curr.itemTotalPrice + acc.itemTotalPrice)
+         : 0;
    }
    req.session.cart = cart;
    res.redirect(`/products/details/${req.params.id}`);
@@ -40,6 +52,7 @@ router.get('/products/:id', async (req, res) => {
 
 router.get('/cart', (req, res) => {
    const cart = req.session.cart;
+   console.log(req.session.totalPrice);
    res.render('products/cart', { cart: cart });
 });
 
