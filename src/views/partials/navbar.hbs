@@ -45,7 +45,7 @@
                <ul>
                   <li class='active'><a href='/'>Home</a></li>
                   <li><a href='/products'>Shop</a></li>
-                  <li><a href='#'>Pages</a>
+                  {{! <li><a href='#'>Pages</a>
                      <ul class='dropdown'>
                         <li><a href='./about.html'>About Us</a></li>
                         <li><a href='./shop-details.html'>Shop Details</a></li>
@@ -53,9 +53,9 @@
                         <li><a href='./checkout.html'>Check Out</a></li>
                         <li><a href='./blog-details.html'>Blog Details</a></li>
                      </ul>
-                  </li>
-                  <li><a href='./blog.html'>Blog</a></li>
-                  <li><a href='./contact.html'>Contacts</a></li>
+                  </li> }}
+                  <li><a href='/about'>About Us</a></li>
+                  <li><a href='/contact'>Contacts</a></li>
                </ul>
             </nav>
          </div>
@@ -64,7 +64,7 @@
                <a href='#' class='search-switch'><img src='/img/icon/search.png' alt='' /></a>
                <a href='#'><img src='/img/icon/heart.png' alt='' /></a>
                <a href='/cart'><img src='/img/icon/cart.png' alt='' /> <span>0</span></a>
-               <div class='price'>$0.00</div>
+               <div class='price'>${{totalPrice}}</div>
             </div>
          </div>
       </div>

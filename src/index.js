@@ -34,7 +34,7 @@ app.use(
       store: new mysqlSession(database),
    })
 );
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(flash());
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
@@ -45,6 +45,7 @@ app.use((req, res, next) => {
    app.locals.success = req.flash('success');
    app.locals.message = req.flash('message');
    app.locals.user = req.user;
+   app.locals.totalPrice = req.session.totalPrice;
    next();
 });
 
