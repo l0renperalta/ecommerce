@@ -3,6 +3,8 @@ const router = express.Router();
 const pool = require('../connection');
 const passport = require('passport');
 const { isLoggedIn, adminLoggedIn } = require('../lib/authMiddleware');
+const Chart = require('chart.js/auto');
+const { getRelativePosition } = require('chart.js/helpers');
 
 router.get('/wp-register', (req, res) => {
    res.render('admin/register', { layout: false });
@@ -29,21 +31,18 @@ router.post('/wp-admin', (req, res, next) => {
    })(req, res, next);
 });
 
-// -----------------------------------------------------------------
-router.get('/profile', isLoggedIn, (req, res) => {
-   res.render('profile');
-});
-
 router.get('/dashboard/logout', isLoggedIn, (req, res, next) => {
    req.logOut(req.user, (err) => {
       if (err) return next(err);
       res.redirect('/wp-admin');
    });
 });
-// -----------------------------------------------------------------
 
 router.get('/dashboard', adminLoggedIn, async (req, res) => {
-   res.render('admin/dashboard', { layout: 'admin' });
+   let labels = JSON.stringify(['Black', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']);
+   const data = JSON.stringify([12, 19, 3, 9, 12, 15]);
+
+   res.render('admin/dashboard', { layout: 'admin', labels, data });
 });
 
 router.get('/dashboard/products', adminLoggedIn, async (req, res) => {

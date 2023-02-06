@@ -1,6 +1,6 @@
 CREATE DATABASE db_ecommerce;
 
-use db_ecommerce;
+USE db_ecommerce;
 
 -- Users table
 CREATE TABLE users(
@@ -38,3 +38,27 @@ ALTER TABLE products
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 2;
 
 DESCRIBE products;
+
+-- Orders table
+CREATE TABLE orders(
+    id INT(11) NOT NULL,
+    firstName VARCHAR(30) NOT NULL,
+    lastName VARCHAR(30) NOT NULL,
+    country VARCHAR(30) NOT NULL,
+    address VARCHAR(30) NOT NULL,
+    city VARCHAR(30) NOT NULL,
+    phone INT(15) NOT NULL,
+    postcode INT(10) NOT NULL,
+    notes TEXT,
+    user_id INT(11),
+    created_at timestamp NOT NULL DEFAULT current_timestamp,
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+ALTER TABLE orders
+    ADD PRIMARY KEY (id);
+
+ALTER TABLE orders
+    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 2;
+
+DESCRIBE orders;
